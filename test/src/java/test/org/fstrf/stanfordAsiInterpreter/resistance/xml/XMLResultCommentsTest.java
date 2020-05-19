@@ -58,9 +58,8 @@ public class XMLResultCommentsTest extends TestCase
     	//Normal file -- Should be no errors
     	System.out.println("Normal Use Result Comments");
         try {
-        	attemptTransformation("test/files/result_based_comments/KPL_1.1.xml");
+        	attemptTransformation("test/files/result_based_comments/KPL_1.0.xml");
         } catch (Exception e) {
-        	e.printStackTrace();
             fail(e.getMessage());
             e.printStackTrace();
         }
@@ -91,49 +90,31 @@ public class XMLResultCommentsTest extends TestCase
     	System.out.println("\t==> No Errors");
     }
 
-    public void testResultCommentRuleWithNoCondition() {
+    public void testResultCommentDrugWithNoName() {
     	boolean exceptionTriggered = false;
-    	System.out.println("Result Comment Rule with no conditions");
+    	System.out.println("Result Comment Drug with no name");
     	try {
-    		attemptTransformation("test/files/result_based_comments/ResultCommentRuleWithNoCondition.xml");
+    		attemptTransformation("test/files/result_based_comments/ResultCommentDrugWithNoName.xml");
     	} catch (ASIParsingException e) {
-    		System.out.println("\t==> "+e.getCause());
-    		assert(e.getCause().getMessage().contains("The content of element type \"RESULT_COMMENT_RULE\" is incomplete"));
-    		exceptionTriggered = true;
+    		System.out.println("\t==> "+e.getMessage());
+            assertEquals(e.getMessage(),"Not a Stanford resistance analysis XML file");
+            exceptionTriggered = true;
         } catch (Exception e) {
         	System.out.println("Unexpected error: "+e.toString());
         	fail(e.getMessage());
         }
     	if (!exceptionTriggered) {
-    		fail("Result Comment Rule with no condition should trigger validation error");
+    		fail("ResultCommentDrug with no name should trigger validation error");
     	}
     }
 
-    public void testResultCommentRuleWithEmptyConditions() {
+    public void testResultCommentDrugWithNoRules() {
     	boolean exceptionTriggered = false;
-    	System.out.println("Result Comment Rule with Empty conditions");
+    	System.out.println("Result Comment Drug with no rule");
     	try {
-    		attemptTransformation("test/files/result_based_comments/ResultCommentRuleWithEmptyConditions.xml");
+    		attemptTransformation("test/files/result_based_comments/ResultCommentDrugWithNoRules.xml");
     	} catch (ASIParsingException e) {
-    		System.out.println("\t==> "+e.getCause());
-    		assert(e.getCause().getMessage().contains("The content of element type \"DRUG_LEVEL_CONDITIONS\" is incomplete"));
-    		exceptionTriggered = true;
-        } catch (Exception e) {
-        	System.out.println("Unexpected error: "+e.toString());
-        	fail(e.getMessage());
-        }
-    	if (!exceptionTriggered) {
-    		fail("Result Comment Rule with empty conditions should trigger validation error");
-    	}
-    }
-
-    public void testResultCommentRuleWithNoActions() {
-    	boolean exceptionTriggered = false;
-    	System.out.println("Result Comment Rule with no actions");
-    	try {
-    		attemptTransformation("test/files/result_based_comments/ResultCommentRuleWithNoActions.xml");
-    	} catch (ASIParsingException e) {
-    		System.out.println("\t==> "+e.getCause());
+    		System.out.println("\t==> "+e.getMessage());
     		assertEquals(e.getMessage(),"Not a Stanford resistance analysis XML file");
     		exceptionTriggered = true;
         } catch (Exception e) {
@@ -141,69 +122,69 @@ public class XMLResultCommentsTest extends TestCase
         	fail(e.getMessage());
         }
     	if (!exceptionTriggered) {
-    		fail("Result Comment Rule with no action should trigger validation error");
+    		fail("ResultCommentDrug with no rules should trigger validation error");
     	}
     }
 
-    public void testEmptyDrugLevelCondition() {
+    public void testLevelRuleWithNoCondition() {
     	boolean exceptionTriggered = false;
-    	System.out.println("Empty Drug Level Condition");
+    	System.out.println("Level Rule with no condition");
     	try {
-    		attemptTransformation("test/files/result_based_comments/EmptyDrugLevelCondition.xml");
+    		attemptTransformation("test/files/result_based_comments/LevelRuleWithNoCondition.xml");
     	} catch (ASIParsingException e) {
-    		System.out.println("\t==> "+e.getCause());
-    		assert(e.getCause().getMessage().contains("The content of element type \"DRUG_LEVEL_CONDITION\" is incomplete"));
+    		System.out.println("\t==> "+e.getMessage());
+    		assertEquals(e.getMessage(),"Not a Stanford resistance analysis XML file");
     		exceptionTriggered = true;
         } catch (Exception e) {
         	System.out.println("Unexpected error: "+e.toString());
         	fail(e.getMessage());
         }
     	if (!exceptionTriggered) {
-    		fail("Empty Drug Level Condition should trigger validation error");
+    		fail("LevelRule with no condition should trigger validation error");
     	}
     }
 
-    public void testDrugLevelConditionWithNoDrug() {
+    public void testLevelRuleWithNoActions() {
     	boolean exceptionTriggered = false;
-    	System.out.println("DrugLevelCondition with no drug");
+    	System.out.println("Level Rule with no actions");
     	try {
-    		attemptTransformation("test/files/result_based_comments/DrugLevelConditionWithNoDrug.xml");
+    		attemptTransformation("test/files/result_based_comments/LevelRuleWithNoActions.xml");
     	} catch (ASIParsingException e) {
-    		System.out.println("\t==> "+e.getCause());
-    		assert(e.getCause().getMessage().contains("The content of element type \"DRUG_LEVEL_CONDITION\" must match \"(DRUG_NAME,(LTE|LT|GTE|GT|EQ|NEQ)+)\"."));
+    		System.out.println("\t==> "+e.getMessage());
+    		assertEquals(e.getMessage(),"Not a Stanford resistance analysis XML file");
     		exceptionTriggered = true;
         } catch (Exception e) {
         	System.out.println("Unexpected error: "+e.toString());
         	fail(e.getMessage());
         }
     	if (!exceptionTriggered) {
-    		fail("Drug Level Condition with no drug should trigger validation error");
+    		fail("Level Rule with no action should trigger validation error");
     	}
     }
 
-    public void testDrugLevelConditionWithNoComparisons() {
+    public void testEmptyLevelCondition() {
     	boolean exceptionTriggered = false;
-    	System.out.println("DrugLevelCondition with no comparisons");
+    	System.out.println("Empty Level Condition");
     	try {
-    		attemptTransformation("test/files/result_based_comments/DrugLevelConditionWithNoComparisons.xml");
+    		attemptTransformation("test/files/result_based_comments/EmptyLevelCondition.xml");
     	} catch (ASIParsingException e) {
-    		System.out.println("\t==> "+e.getCause());
-    		assert(e.getCause().getMessage().contains("The content of element type \"DRUG_LEVEL_CONDITION\" is incomplete"));
+    		System.out.println("\t==> "+e.getMessage());
+    		assertEquals(e.getMessage(),"Not a Stanford resistance analysis XML file");
     		exceptionTriggered = true;
         } catch (Exception e) {
         	System.out.println("Unexpected error: "+e.toString());
         	fail(e.getMessage());
         }
     	if (!exceptionTriggered) {
-    		fail("Drug Level Condition with no drug should trigger validation error");
+    		fail("Empty Level Condition should trigger validation error");
     	}
     }
 
-    public void testMultipleResultCommentRules() {
+    public void testMultipleLevelRules() {
     	//Multiple Level Rules for a drug - should be no errors
-    	System.out.println("Multiple Result Comment Rules");
+    	System.out.println("Multiple Rules for a Drug");
     	try {
-    		attemptTransformation("test/files/result_based_comments/MultipleResultCommentRules.xml");
+    		attemptTransformation("test/files/result_based_comments/MultipleLevelRules.xml");
     	} catch (Exception e) {
             fail(e.getMessage());
             e.printStackTrace();
@@ -211,11 +192,11 @@ public class XMLResultCommentsTest extends TestCase
     	System.out.println("\t==> No Errors");
     }
 
-    public void testDrugLevelConditionWithMultipleComparisons() {
+    public void testLevelConditionWithMultipleComparisons() {
     	//Multiple comparisons in a level condition - should be no errors
-    	System.out.println("Drug Level Condition with Multiple Comparisons");
+    	System.out.println("Level Condition with Multiple Comparisons");
     	try {
-    		attemptTransformation("test/files/result_based_comments/DrugLevelConditionWithMultipleComparisons.xml");
+    		attemptTransformation("test/files/result_based_comments/LevelConditionWithMultipleComparisons.xml");
     	} catch (Exception e) {
             fail(e.getMessage());
             e.printStackTrace();
@@ -229,15 +210,15 @@ public class XMLResultCommentsTest extends TestCase
     	try {
     		attemptTransformation("test/files/result_based_comments/EmptyLevelAction.xml");
     	} catch (ASIParsingException e) {
-    		System.out.println("\t==> "+e.getCause());
-    		assert(e.getCause().getMessage().contains("The content of element type \"LEVEL_ACTION\" is incomplete"));
+    		System.out.println("\t==> "+e.getMessage());
+    		assertEquals(e.getMessage(),"Not a Stanford resistance analysis XML file");
     		exceptionTriggered = true;
         } catch (Exception e) {
         	System.out.println("Unexpected error: "+e.toString());
         	fail(e.getMessage());
         }
     	if (!exceptionTriggered) {
-    		fail("Empty Level Action should trigger validation error");
+    		fail("Empty Level Condition should trigger validation error");
     	}
     }
 
@@ -248,7 +229,7 @@ public class XMLResultCommentsTest extends TestCase
     		attemptTransformation("test/files/result_based_comments/UndefinedDrug.xml");
     	} catch (ASIParsingException e) {
     		System.out.println("\t==> "+e.getMessage());
-    		assert(e.getMessage().contains("has result comment rules but is not defined as a drug"));
+    		assert(e.getMessage().contains("has result comments but is not defined as a drug"));
     		exceptionTriggered = true;
         } catch (Exception e) {
         	System.out.println("Unexpected error: "+e.toString());
@@ -273,7 +254,7 @@ public class XMLResultCommentsTest extends TestCase
         	fail(e.getMessage());
         }
     	if (!exceptionTriggered) {
-    		fail("Undefined Level should trigger validation error");
+    		fail("Undefined Drug should trigger validation error");
     	}
     }
 
